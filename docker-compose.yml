@@ -3,7 +3,7 @@ version: '3.8'
 services:
   db:
     image: mysql:8.0
-    container_name: db
+    container_name: mogurogu_db
     environment:
       - MYSQL_DATABASE=laravel
       - MYSQL_USER=user
@@ -22,7 +22,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
-    container_name: nginx
+    container_name: mogurogu_nginx
     ports:
       - 80:80
     volumes:
@@ -35,7 +35,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/php/Dockerfile
-    container_name: app
+    container_name: mogurogu_app
     volumes:
       - ./src:/var/www/app
     depends_on:
