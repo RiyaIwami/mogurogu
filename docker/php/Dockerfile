@@ -33,5 +33,5 @@ RUN docker-php-ext-install \
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
 
-WORKDIR /var/www/app
+WORKDIR /var/www/html
 
