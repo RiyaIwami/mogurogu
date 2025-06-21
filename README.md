@@ -1,14 +1,22 @@
-version: '3.8'
-
 services:
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    container_name: app
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - db
+
   db:
     image: mysql:8.0
     container_name: db
     environment:
-      - MYSQL_DATABASE=laravel
-      - MYSQL_USER=user
-      - MYSQL_PASSWORD=password
-      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=
+      - MYSQL_USER=
+      - MYSQL_PASSWORD=
+      - MYSQL_ROOT_PASSWORD=
       - TZ='Asia/Tokyo'
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
@@ -26,17 +34,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./src:/var/www/app
+      - ./src:/var/www/html
       - ./docker/nginx/default.conf:/etc/nginx/nginx.conf
     depends_on:
       - app
-
-  app:
-    build:
-      context: .
-      dockerfile: ./docker/php/Dockerfile
-    container_name: app
-    volumes:
-      - ./src:/var/www/app
-    depends_on:
-      - db
